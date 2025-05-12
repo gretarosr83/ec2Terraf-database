@@ -56,6 +56,5 @@ mongosh
 
 #  # switch to the admin database
         use admin
-        # create an admin user 
         db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
 
