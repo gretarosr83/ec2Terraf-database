@@ -1,61 +1,38 @@
 
     #!/bin/bash
-    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+    # wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
 
-sudo apt-get install gnupg
+# install gnupg and curl if they are not already available:
+sudo apt-get install gnupg curl
 
-wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+# MongoDB public GPG key, run the following command:
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
+   --dearmor
 
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+  # Create the list file for Ubuntu 24.04 (Noble):
+  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 
+
+# Reload the package database
 sudo apt-get update
 
-sudo apt-get upgrade
-
+# Install MongoDB Community Server
 
 sudo apt-get install -y mongodb-org
 
 
-echo "mongodb-org hold" | sudo dpkg --set-selections
-echo "mongodb-org-database hold" | sudo dpkg --set-selections
-echo "mongodb-org-server hold" | sudo dpkg --set-selections
-echo "mongodb-org-shell hold" | sudo dpkg --set-selections
-echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
-echo "mongodb-org-tools hold" | sudo dpkg --set-selections
-
 
 sudo systemctl start mongod
-
-# Only run these command in case some issue
-# sudo systemctl daemon-reload
-
-sudo systemctl status mongod
-
-# sudo systemctl enable mongod
-# sudo systemctl restart mongod
-
 
 
 mongosh
 
-# Switch to the dbnew database
-# use dbnew
 
- # switch to the admin database
+#  # switch to the admin database
         use admin
         # create an admin user 
         db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
 
 
-# SET MONGO TO ACCESS GLOBALLY
-
-# 1. NEED TO CHANGE IN /etc/mongod.conf
-
-#     sudo vim /etc/mongod.conf
-
-#     net:
-#     port: 27017
-#     bindIp: 0.0.0.0 
-
-# After configured mongo.conf file run this command
-# sudo service mongo restart
+# # sudo service mongo restart
