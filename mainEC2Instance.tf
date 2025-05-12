@@ -49,12 +49,12 @@ resource "aws_instance" "demo_instance" {
 
     }
 
-    # provisioner "remote-exec" {
-    #     inline = [ 
-    #         "chmod +x /tmp/database.sh", #permision of the execution to the file
-    #         "sudo /tmp/database.sh" #command to execute the file
-    #      ]
-    # }
+    provisioner "remote-exec" {
+        inline = [ 
+            "chmod +x /tmp/database.sh", #permision of the execution to the file
+            "sudo /tmp/database.sh" #command to execute the file
+         ]
+    }
 
   # SSH Configuration
     connection {
