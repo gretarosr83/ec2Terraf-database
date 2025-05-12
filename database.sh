@@ -35,4 +35,27 @@ mongosh
         db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
 
 
-# # sudo service mongo restart
+# Configuration file  path to remote access to the database
+CONFIG_FILE="/etc/mongod.conf"
+
+# New bindIp value
+NEW_BIND_IP="0.0.0.0"
+
+# Backup the original config file
+cp $CONFIG_FILE $CONFIG_FILE.bak
+
+# Use sed to modify the bindIp line
+sed -i "s/bindIp:.*/bindIp: $NEW_BIND_IP/" $CONFIG_FILE
+
+# Check if the change was successful
+if grep "$NEW_BIND_IP" $CONFIG_FILE; then
+  echo "Successfully updated bindIp to $NEW_BIND_IP"
+  # Restart mongod service
+  sudo service mongod restart
+  echo "Mongod service restarted"
+else
+  echo "Failed to update bindIp.  Check the script and configuration file."
+  # Restore the original config file if the update failed
+  cp $CONFIG_FILE.bak $CONFIG_FILE
+  echo "Original config file restored."
+fi
