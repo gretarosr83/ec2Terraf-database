@@ -15,7 +15,7 @@ curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
 
 
 # Reload the package database
-sudo apt-get update
+sudo apt-get update -y
 
 # Install MongoDB Community Server
 
@@ -24,16 +24,6 @@ sudo apt-get install -y mongodb-org
 
 
 sudo systemctl start mongod
-
-
-mongosh
-
-
-#  # switch to the admin database
-        use admin
-        # create an admin user 
-        db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
-
 
 # Configuration file  path to remote access to the database
 CONFIG_FILE="/etc/mongod.conf"
@@ -59,3 +49,13 @@ else
   cp $CONFIG_FILE.bak $CONFIG_FILE
   echo "Original config file restored."
 fi
+
+
+mongosh
+
+
+#  # switch to the admin database
+        use admin
+        # create an admin user 
+        db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
+
