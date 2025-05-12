@@ -2,8 +2,12 @@
     #!/bin/bash
     # wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
 
+
+
+
 # install gnupg and curl if they are not already available:
 sudo apt-get install gnupg curl
+
 
 # MongoDB public GPG key, run the following command:
 curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
@@ -51,10 +55,22 @@ else
 fi
 
 
-mongosh
+# mongosh
 
 
 #  # switch to the admin database
-        use admin
-        db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
+        # use admin
+        # db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
 
+
+ 
+# Copying databse script to instance
+DATABASE_DIR="/database"
+sudo cp $DATABASE_DIR /tmp/
+
+sudo apt install nodejs -y #Installs Node.js and its dependencies 
+sudo apt install npm -y 
+
+cd /tmp/databse
+sudo npm install
+npm run start
