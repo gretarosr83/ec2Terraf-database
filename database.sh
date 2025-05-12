@@ -46,7 +46,7 @@ if grep "$NEW_BIND_IP" $CONFIG_FILE; then
 else
   echo "Failed to update bindIp.  Check the script and configuration file."
   # Restore the original config file if the update failed
-  cp $CONFIG_FILE.bak $CONFIG_FILE
+  sudo cp $CONFIG_FILE.bak $CONFIG_FILE
   echo "Original config file restored."
 fi
 
