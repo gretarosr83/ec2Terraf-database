@@ -42,10 +42,10 @@ CONFIG_FILE="/etc/mongod.conf"
 NEW_BIND_IP="0.0.0.0"
 
 # Backup the original config file
-cp $CONFIG_FILE $CONFIG_FILE.bak
+sudo cp $CONFIG_FILE $CONFIG_FILE.bak
 
 # Use sed to modify the bindIp line
-sed -i "s/bindIp:.*/bindIp: $NEW_BIND_IP/" $CONFIG_FILE
+sudo sed -i "s/bindIp:.*/bindIp: $NEW_BIND_IP/" $CONFIG_FILE
 
 # Check if the change was successful
 if grep "$NEW_BIND_IP" $CONFIG_FILE; then
