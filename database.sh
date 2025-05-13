@@ -56,8 +56,6 @@ fi
 
 
 # mongosh
-
-
 #  # switch to the admin database
         # use admin
         # db.createUser({ user: "newadmin", pwd: "newadmin123", roles: ["root"] })
@@ -65,12 +63,15 @@ fi
 
  
 # Copying databse script to instance
-DATABASE_DIR="/database"
-sudo cp $DATABASE_DIR /tmp/
+ # UBUNTU 
+  sudo apt install git -y
+    # git clone https://github.com/gretarosr83/reactReduxToolkit-.git /home/ec2-user/react-app
+  sudo git clone https://github.com/gretarosr83/database.git /home/database
+
 
 sudo apt install nodejs -y #Installs Node.js and its dependencies 
 sudo apt install npm -y 
 
-cd /tmp/databse
+cd /home/database
 sudo npm install
-npm run start
+node script.js
